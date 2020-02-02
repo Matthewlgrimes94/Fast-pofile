@@ -3,6 +3,7 @@
 # Fast-profile takes in a github username, and generates a simple PDF with user information on it
 
 # Link
+   *https://matthewlgrimes94.github.io/Fast-profile/
 
 
 # Screenshots:
