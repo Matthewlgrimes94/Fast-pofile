@@ -3,6 +3,7 @@ const inquirer = require('inquirer');
 const axios = require('axios');
 var pdf = require("html-pdf");
 
+//Promt user for info
 function prompt() {
     return inquirer.prompt([
         {
@@ -15,22 +16,20 @@ function prompt() {
             name: 'color',
             choices: ['red', 'blue', 'green','orange', 'pink']
         }
-        
+       // Get answers and use them to get github info 
     ]).then(function(answers) {
         var name = answers.profile;
         var color = answers.color;
         var user = getUserData(name, color);
-        //console.log(answers);
-        //console.log('user' + user);
     });
 }
 
+//API call to hithub for user info
 function getUserData(user, color) {
     console.log(user);
     axios.get(`https://api.github.com/users/${user}`)
   .then(function (response) {
-    // handle success
-    //console.log(response);
+    //Using HTML-PDF to create pdf from HTML
     info = response.data
         var generated = generateHTML(info,color);
         var options = {fomat: 'letter'};
@@ -44,7 +43,8 @@ function getUserData(user, color) {
     console.log(error);
   });
 }
-  
+
+//Generate HTML from github response, and pass in color for pdf styling
 function generateHTML(user, color) {
     return `<!DOCTYPE html>
     <html lang="en">
